@@ -9,6 +9,8 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import sklearn as sk
 import re
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 en_stopwords = stopwords.words('english')
 lemmatizer = WordNetLemmatizer()
@@ -24,7 +26,7 @@ def import_data(input_file):
         raise FileNotFoundError(f"'{input_file}' could not be found. Please check the directory and ensure that it is spelt correctly ")
 
 
-
+##Text pre-processing
 def prepare_text(df,column_name):
     #make sure that the user enters function arguments correctly. If not, raise an error
     if not isinstance(column_name,str) :
@@ -37,7 +39,7 @@ def prepare_text(df,column_name):
     if column_name not in df.columns:
         raise KeyError(f"Column '{column_name}' not found in the dataframe. Please check columns and ensure it correctly spelt")
     
-    #check that the type of the column is a string dtype. If not, raise a TypeError. pd.api.types can check 'objects' and newer StringDtypes which makes it robust
+    #check that the data type of the column is <string> dtype. If not, raise a TypeError. pd.api.types can check 'objects' and the newer StringDtypes which makes it robust
     if not pd.api.types.is_string_dtype(df[column_name]):
         raise TypeError(f"Please choose a column of  type <string>. The column, '{column_name}' is of type <{df[column_name].dtype}>")
     
@@ -76,4 +78,17 @@ def prepare_text(df,column_name):
 
 
 
+# def wordcloud_plt(words,num_topics):
+  
+#   for i in range(0,num_topics):
+#     word_cloud = WordCloud(background_color=black, width=800,height=500,background_color='grey',random_state=21,max_font_size=110).generate(words)
+#     #plot word cloud
+#     plt.figure(figsize=(10,7))
+#     plt.imshow(word_cloud,interpolation='bilinear')
+#     plt.axis("off")
+#     plt.title("Word cloid topic")
 
+
+
+#   #for topic im topics:
+#       #plot word cloud 

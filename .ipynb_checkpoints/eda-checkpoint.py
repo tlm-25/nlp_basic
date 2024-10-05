@@ -1,7 +1,5 @@
 from src.helpers import utils
 import gensim
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 
 file_name = 'dummy_data.csv'
 incident_description_column = 'description'
@@ -27,20 +25,12 @@ print(dictionary)
 
 #create bag of words from the descriptions
 doc_term = [dictionary.doc2bow(text) for text in descriptions ]
-#print(doc_term)
+print(doc_term)
+
+
 
 lda_model = gensim.models.LdaModel(corpus=doc_term,id2word=dictionary,num_topics=6)
 
+print(lda_model.print_topics(num_topics=num_topics,num_words=5))
 
-topic_words = lda_model.print_topics(num_topics=num_topics,num_words=8)
-
-#print(type(topic_words[0]))
-
-
-for i in range(0,len(topic_words)):
-     word_cloud = WordCloud(background_color='black', width=800,height=500,random_state=21,max_font_size=110).generate_from_frequencies(topic_words[i])
-     plt.figure(figsize=(10,7))
-     plt.imshow(word_cloud,interpolation='bilinear')
-     plt.axis("off")
-     plt.title("topic"+ " "+ str(i))
-     plt.show()
+#display the topic groups 
