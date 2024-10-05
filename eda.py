@@ -8,19 +8,25 @@ from src.helpers import utils
 #input file
 FILE_NAME = 'dummy_data.csv'
 
-#name of the column where the user enters freetext to describe the incident 
-INCIDENT_DESC_COL = 'description'
+#"Incident description column" - name of column with the description of an incident
+INC_DESC_COL = 'description'
 
-#get the number of topics that we are interested in 
-num_topics = 6
+# number of topics that we are interested in 
+NUM_TOPICS = 6
+
+#Extract the N most commin words per topic
+NUM_WORDS = 8
+
+
+
 
 #import data
 incidents_df = utils.import_data(FILE_NAME)
 
 #clean the text data (lowercase, tokenize etc.)
-incidents_df = utils.prepare_text(incidents_df,incident_description_column)
+incidents_df = utils.prepare_text(incidents_df,INC_DESC_COL)
 
-descriptions = incidents_df[incident_description_column]
+descriptions = incidents_df[INC_DESC_COL]
 
 
 ###TOPIC MODELLING
@@ -34,10 +40,10 @@ print(dictionary)
 doc_term = [dictionary.doc2bow(text) for text in descriptions ]
 #print(doc_term)
 
-lda_model = gensim.models.LdaModel(corpus=doc_term,id2word=dictionary,num_topics=6)
+lda_model = gensim.models.LdaModel(corpus=doc_term,id2word=dictionary,num_topics=NUM_TOPICS)
 
 
-topic_words = lda_model.print_topics(num_topics=num_topics,num_words=8)
+topic_words = lda_model.print_topics(num_topics=NUM_TOPICS,num_words=NUM_WORDS)
 
 #print(type(topic_words[0]))
 
