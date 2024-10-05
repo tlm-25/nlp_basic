@@ -1,16 +1,21 @@
-from src.helpers import utils
+
 import gensim
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-file_name = 'dummy_data.csv'
-incident_description_column = 'description'
+from src.helpers import utils
+
+#input file
+FILE_NAME = 'dummy_data.csv'
+
+#name of the column where the user enters freetext to describe the incident 
+INCIDENT_DESC_COL = 'description'
 
 #get the number of topics that we are interested in 
 num_topics = 6
 
 #import data
-incidents_df = utils.import_data(file_name)
+incidents_df = utils.import_data(FILE_NAME)
 
 #clean the text data (lowercase, tokenize etc.)
 incidents_df = utils.prepare_text(incidents_df,incident_description_column)
