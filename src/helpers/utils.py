@@ -24,6 +24,7 @@ def import_data(input_file):
 
     except FileNotFoundError:
         raise FileNotFoundError(f"'{input_file}' could not be found. Please check the directory and ensure that it is spelt correctly ")
+    
 
 
 ## TEXT PRE-PROCESSING
@@ -36,7 +37,7 @@ def prepare_text(df,column_name):
     
     ###DATAFRAME READING BLOCK
     
-    '''check that the column exists, otherwise raise an error''' 
+    '''check that the column exists. raise a KeyError ''' 
 
     if column_name not in df.columns:
         raise KeyError(f"Column '{column_name}' not found in the dataframe. Please check columns and ensure it correctly spelt")
