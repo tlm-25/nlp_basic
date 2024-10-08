@@ -9,3 +9,5 @@ def topic_word_cloud(lda_model):
         plt.axis("off")
         plt.title("Topic "+ " "+ str(topic))
         plt.show()
+
+

@@ -28,7 +28,7 @@ def import_data(input_file):
 
 
 ## TEXT PRE-PROCESSING
-def prepare_text(df,column_name):
+def prepare_text(df:pd.DataFrame,column_name:str):
 
     '''make sure that the user enters function arguments correctly. If not, raise an error'''
     if not isinstance(column_name,str) :
@@ -37,7 +37,7 @@ def prepare_text(df,column_name):
     
     ###DATAFRAME READING BLOCK
     
-    '''check that the column exists. raise a KeyError ''' 
+    '''check that the column exists. raise a KeyError if not ''' 
 
     if column_name not in df.columns:
         raise KeyError(f"Column '{column_name}' not found in the dataframe. Please check columns and ensure it correctly spelt")
@@ -77,19 +77,10 @@ def prepare_text(df,column_name):
         print(f"Error processing text data: {e}")
         print("Please re-look  at the 'text processing section' your clean_text function")
 
-
-
-# def wordcloud_plt(words,num_topics):
-  
-#   for i in range(0,num_topics):
-#     word_cloud = WordCloud(background_color=black, width=800,height=500,background_color='grey',random_state=21,max_font_size=110).generate(words)
-#     #plot word cloud
-#     plt.figure(figsize=(10,7))
-#     plt.imshow(word_cloud,interpolation='bilinear')
-#     plt.axis("off")
-#     plt.title("Word cloid topic")
-
-
-
-#   #for topic im topics:
-#       #plot word cloud 
+#FEEDBACK - More subtle errors - what if one of the strings is empty, or has an empty space 
+#if column.isnull():
+#raise warning 
+#add logging 
+# expert - in the real-world scenario 
+#data expectations 
+#handle all strange edge cases for a working product to get the 'expert' grade. 
