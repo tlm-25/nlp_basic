@@ -10,23 +10,32 @@
 body{
     min-height: 100vh;
     background: #1a313a;
+    
 
 }
 
 .sidebar {
-    position: absolute;
-    width: 60px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 300px;
     height: 100vh;
     background: #fff;
     overflow: hidden;
     transition: 0.5s;
+    padding-top: 30px;
+    padding-right: 5%;
+    align-items: space-between;
+}
 
+@media (max-width:800px) {
+    .sidebar {
+        width: 60px
+    }
 
 }
 
-.sidebar:hover {
-    width: 300px;
-}
+
 
 .sidebar ul {
     position: relative;
@@ -66,7 +75,7 @@ body{
 
 }
 
-.sidebar ul li a .icon  .text{
+.sidebar ul li a  .text{
     position: relative;
     height: 60px;
     display: flex;
@@ -97,7 +106,61 @@ body{
 }
 
 .search-container {
-    width: 60%;
+    margin-left: 300px;
     
+}
 
+.location-card {
+    padding: 2em;
+    border: 1px solid rgb(75, 82, 92);
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #333;
+    
+}
+.location-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,250px) ;
+    color: white;
+    margin-left: 320px;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-right: 10vh;
+
+}
+
+.station-name-container {
+    height: 15%;
+    border: 1px solid rgb(75,82,92);
+
+}
+
+.search-bar {
+    margin-left: 300px;
+    margin: auto;
+    margin-left: 300px;
+
+    position: relative;
+    height: 5vh;
+    border-bottom: #000;
+    justify-content: center;
+    display: flex;
+    font:1rem;
+    width: 60vh;
+    border-radius:  5px;
+
+}
+
+.search-bar-container {
+    margin-left: 300px;
+    display: flex;
+    flex-direction: column;
+    gap:0.25rem;
+    font-size: 1rem;
+
+}
+
+.hide {
+    display: none;
 }

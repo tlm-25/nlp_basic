@@ -28,7 +28,7 @@ def import_data(input_file):
 
 
 ## TEXT PRE-PROCESSING
-def prepare_text(df:pd.DataFrame,column_name:str):
+def prepare_text(df,column_name:str):
 
     '''make sure that the user enters function arguments correctly. If not, raise an error'''
     if not isinstance(column_name,str) :

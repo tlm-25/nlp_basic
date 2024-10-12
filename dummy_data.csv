@@ -1,7 +1,7 @@
 ﻿id,description,date,time,type
 1,Someone stolen my wallet!,23/03/2022,10:40:11,theft
 2,Passenger on track was nearly struck by a train.,23/03/2022,12:40:32,near miss
-3,"The mains cable not marked , and the colleague nearly got an electrical shock ",23/03/2022,13:40:22,near miss 
+3,"The mains cable not marked , and the colleague nearly got an electrical shock ",23/03/2022,13:40:22,near miss
 4,cable was damaged ,23/03/2022,14:25:45,asset damage
 5,Customer shouted slurs at worker ,23/03/2022,15:56:38,verbal abuse
 6,Two customers got into a fight. The  really physically ,23/03/2022,16:40:13,physical confrontation
