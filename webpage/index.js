@@ -40,23 +40,3 @@ fetch(stationListURL).then(res => res.json()).then(data => {
 
 })
 
-// fetch(stationListURL).then(res => res.json()).then(data => {
-//     console.log(data)
-
-//     location = data.map(location => {
-//     /*Clone content, get everything inside the template*/
-//     const card = locationCardTemplate.content.cloneNode(true).children[0];
-//     const stationName = card.querySelector("[data-location-name]")
-//     stationName.textContent = location.name
-//     new_img = card_img.cloneNode(true)
-//     card.appendChild(new_img)
-//     locationCardContainer.append(card)
-
-//     return {name: location.name, element: card}
-//     }) 
-    
-
-
-// })
-
-

@@ -118,6 +118,16 @@ body{
     color: #333;
     
 }
+
+.location-card:hover{
+    background-color: #333;
+    transition: 0.2s;
+    color: #f3f3f3;
+
+
+
+
+}
 .location-card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit,250px) ;
@@ -137,7 +147,7 @@ body{
 }
 
 .search-bar {
-    margin-left: 300px;
+    margin-left: 310px;
     margin: auto;
     margin-left: 300px;
 
@@ -153,7 +163,8 @@ body{
 }
 
 .search-bar-container {
-    margin-left: 300px;
+    margin-left: 310px;
+    width: 50vh;
     display: flex;
     flex-direction: column;
     gap:0.25rem;
