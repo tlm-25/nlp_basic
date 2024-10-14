@@ -2,7 +2,6 @@
 import gensim
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-
 from src.helpers import utils
 from src.helpers import vis
 
@@ -58,7 +57,7 @@ vis.topic_word_cloud(lda_topics)
 vis.view_label_sample(incidents_df,LABEL_COLUMN)
 
 l=[lda_topics.get_document_topics(item) for item in doc_term]
-print(l)
+print(doc_term)
 
 #Implement BERT Topic to see how topics are related, and see how many topics would be useful
 #see the interaction between different clusters. 
