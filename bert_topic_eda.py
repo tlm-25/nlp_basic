@@ -43,7 +43,6 @@ topics_df = pd.DataFrame({"Document": descriptions, "Topic:": topics})
 print(topics_df.head(15))
 
 
-#topics_df.loc[topics_df["Topics"]== 0,"Topic"] == "theft"
-#topics_df.loc[topics_df["Topics"]==1,"Topic"] == ""
-#topics_df.loc[topics_df["Topics"]==2,"Topic"] == ""
-#topic_model.visualize_barchart()
+
+
+# Competency 
