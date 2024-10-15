@@ -20,8 +20,9 @@ def topic_word_cloud(lda_model):
 #view sample of labels in the dataset 
 def view_label_sample(df:pd.DataFrame,column_name:str):
     label_split = df[column_name].value_counts().reset_index()
-    label_split.rename(columns ={"type":"count"},inplace=True)
+    print(label_split.info())
     label_split.rename(columns ={"index":"type"},inplace=True)
+    label_split.rename(columns ={f"{column_name}":"count"},inplace=True)
     plt.figure()
     sns.barplot(y=label_split["type"],x=label_split["count"])
     plt.show()
