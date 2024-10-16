@@ -77,10 +77,64 @@ def prepare_text(df,column_name:str):
         print(f"Error processing text data: {e}")
         print("Please re-look  at the 'text processing section' your clean_text function")
 
-#FEEDBACK - More subtle errors - what if one of the strings is empty, or has an empty space 
-#if column.isnull():
-#raise warning 
-#add logging 
-# expert - in the real-world scenario 
-#data expectations 
-#handle all strange edge cases for a working product to get the 'expert' grade. 
+
+
+###TAKE A STRATIFIED SAMPLE FROM DATAFRAME
+def stratify_data(df:pd.DataFrame,output_column:str,proportion:float,random_seed:int):
+    
+    '''If proportion argument entered is greater than 1, raise an error'''
+    if proportion > 1: 
+        raise ValueError("proportion argument must be between 0 and 1 e.g. 0.4 for 40% of dataset")
+    
+    '''get expected proportion of each label in the dataset'''
+    df_stratified = df.groupby(output_column).apply(lambda x: x.sample(frac=proportion,random_state=random_seed))
+    
+    return df_stratified
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ###CORRECTING LABELS
+
+# def correct_labels(df:pd.DataFrame,output_file_name:str):
+
+#     stratified_df = df
+
+#     n_iteration = 0 
+#     #record_time_file_generated
+#     while os.path.exists(f"{}")
+    
+#     while os.path.exists('./pre_predictions_{}.csv'):
+#         raise War
+
+#check if file already exist 
+#if os.path.exists(./predictions.csv)
+#raise Warning("predictions.csv already exists.)
+#while:
+# user_input = input("Do you want to continue and overwrite it? Enter "Y" if yes, "N" No.")
+# if user_input!="Y" and user_input not equal to no 
+
+#if file already exists, raise a warning and confirm with the user if they'd like to overwrite the exisiting "predictions file"
+
+#stratify the sample dataset
+
+#clean labels and output a new dataset 
+
+
+
+
+#bootstrap the model and find the best performing model
+
+#output a csv file and manually evaluate the labels
+
+#repeat this function until satisfactoryt
