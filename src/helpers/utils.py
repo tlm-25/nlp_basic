@@ -1,13 +1,13 @@
 import pandas as pd 
 import os 
 import nltk 
+import csv
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 
 from nltk.stem import WordNetLemmatizer
-import sklearn as sk
 import re
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
@@ -79,7 +79,7 @@ def prepare_text(df,column_name:str):
 
 
 
-###TAKE A STRATIFIED SAMPLE FROM DATAFRAME
+## TAKE A STRATIFIED SAMPLE FROM DATAFRAME
 def stratify_data(df:pd.DataFrame,output_column:str,proportion:float,random_seed:int):
     
     '''If proportion argument entered is greater than 1, raise an error'''
@@ -90,15 +90,37 @@ def stratify_data(df:pd.DataFrame,output_column:str,proportion:float,random_seed
     df_stratified = df.groupby(output_column).apply(lambda x: x.sample(frac=proportion,random_state=random_seed))
     
     return df_stratified
+    
+
+#bootstrap and predict 
+#take full dataset
+#take a bootstrapped stratiied sample
+#make model prediction
+#repeat N times, evaluate the best model 
+#look where model and label are different (doubtful)
+#correct doubtful points as needed 
 
 
 
 
+    n_iter = 0
 
+    #check if file exists
+    # while os.path.exists("f{output_file_name}_{n_iter}.csv"):
+    #     n_iter = n_iter + 1 
+    
+    # output_file_name = f"{output_file_name}_{n_iter}"
+    
+    # df_stratified.to_csv(f"{output_file_name}",index=False)
+    
+ 
+        
+    
 
+    
+    ##cgh
 
-
-
+    #bootstrapping test 
 
 
 
@@ -114,8 +136,8 @@ def stratify_data(df:pd.DataFrame,output_column:str,proportion:float,random_seed
 #     #record_time_file_generated
 #     while os.path.exists(f"{}")
     
-#     while os.path.exists('./pre_predictions_{}.csv'):
-#         raise War
+#     while os.path.exists(f'./pre_predictions_{n_iter}.csv'):
+#         raise Warning("File already exists. Do you want to overwrite>")
 
 #check if file already exist 
 #if os.path.exists(./predictions.csv)
@@ -137,4 +159,4 @@ def stratify_data(df:pd.DataFrame,output_column:str,proportion:float,random_seed
 
 #output a csv file and manually evaluate the labels
 
-#repeat this function until satisfactoryt
+#repeat this function until satisfactory
