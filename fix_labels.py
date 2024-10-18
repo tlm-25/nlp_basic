@@ -1,8 +1,10 @@
-from src.helpers import utils 
+from src.helpers import utils, label_clean
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier as rf
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from sklearn.metrics import f1_score
+from imblearn.over_sampling import SMOTE, RandomOverSampler
 #name of column with the text description of an incident
 TEXT_COLUMN_NAME = 'Report'
 
@@ -51,49 +53,50 @@ print(stratified_incidents.info())
 stratified_incidents = utils.prepare_text(stratified_incidents,TEXT_COLUMN_NAME)
 
 
-
-
 stratified_incidents[TEXT_COLUMN_NAME] = stratified_incidents[TEXT_COLUMN_NAME].astype(str)
+#input column(s) (x)
 incident_descriptions = stratified_incidents[TEXT_COLUMN_NAME]
+#output colum (y)
+incident_categories = stratified_incidents[LABEL_COLUMN]
 
 
-#incident_descriptions_bow = bow_generator.fit_transform(stratified_incidents[TEXT_COLUMN_NAME])
-#TF-IDF transformer
-bow_tfidf= TfidfVectorizer(ngram_range=(1,2),max_features=200)
-incident_descriptions_tfidf = bow_tfidf.fit_transform(incident_descriptions)
-#print(incident_descriptions_tfidf)
 
-
-#train test split 
-X = incident_descriptions_tfidf
-Y = stratified_incidents[LABEL_COLUMN]
 #Doing simple train test set, not doing validation set at this stage - don't want to tune TOO closely to the data in
 #case there are many bad laebles 
-x_train,x_test,y_train,y_test = train_test_split(X,Y,stratify=Y,test_size=0.2,random_state=RANDOM_STATE)
 
-print(y_test.head())
-model = rf(max_depth=3,class_weight="balanced",random_state=RANDOM_STATE)
-model.fit(x_train,y_train)
+#incident_descriptions_bow = bow_generator.fit_transform(stratified_incidents[TEXT_COLUMN_NAME])
+#TF-IDF transformer  on the text test
+bow_tfidf= TfidfVectorizer(ngram_range=(1,2),min_df=5, max_df=0.75)
+incident_descriptions_tfidf = bow_tfidf.fit_transform(incident_descriptions)
+x_train,x_test,y_train,y_test = train_test_split(incident_descriptions_tfidf,incident_categories,test_size=0.2,random_state=RANDOM_STATE,stratify=incident_categories)
+test_descriptions = train_test_split(incident_descriptions,incident_categories,test_size=0.2,random_state=RANDOM_STATE,stratify=incident_categories)[1]
+#print(incident_descriptions_tfidf)
+min_samples = y_train.value_counts().min()
+oversample = SMOTE(random_state=RANDOM_STATE,k_neighbors=min_samples-1)
+x_res,y_res = oversample.fit_resample(x_train,y_train)
+
+#ros = RandomOverSampler(random_state=RANDOM_STATE)
+model = rf(max_depth=7,n_estimators=200,random_state=RANDOM_STATE)
+model.fit(x_res,y_res)
 
 predictions =  model.predict(x_test)
 
-print(predictions)
+#print(x_res.info())
 
-headers = ["label","prediction"]
+headers = ["description","label","prediction"]
 
-predictions_df = pd.DataFrame({"label":y_test,"prediction":predictions}).to_csv('predictions.csv')
-
-# #clean the text data (lowercase, tokenize etc.)
+predictions_df = pd.DataFrame({"description": test_descriptions, "label":y_test,"prediction":predictions})
 
 
+print("test f1 score: ",f1_score(y_test,predictions,average="weighted"))
 
+#Get the points where the model predicts differently to the actual dataset 
+label_disagree_df = label_clean.get_label_disagreements(predictions_df,"label","prediction")
 
-
-
-
-##AFTER THIS
+label_disagree_csv = label_disagree_df.to_csv("doubtful_label.csv")
 
 
 
-# #get the column with the incident descriptions 
-# descriptions = incidents_df[TEXT_COLUMN_NAME]
+
+
+

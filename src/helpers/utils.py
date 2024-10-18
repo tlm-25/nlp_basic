@@ -7,13 +7,14 @@ nltk.download('punkt_tab')
 nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer, PorterStemmer
 import re
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 en_stopwords = stopwords.words('english')
 lemmatizer = WordNetLemmatizer()
+stemmer = PorterStemmer()
 
 def import_data(input_file):
     
@@ -62,15 +63,15 @@ def prepare_text(df,column_name:str):
 
         
 
-        '''lemmatize text - e.g. breaking to break, playing becomes play'''
-        df[column_name] = df[column_name].apply(lambda x: lemmatizer.lemmatize(x))
+        '''lemmatize text - e.g. breaking to break, playing to play'''
+        df[column_name] = df[column_name].apply(lambda x: stemmer.stem(x))
 
         '''tokenise - break up sentences into individuual words'''
         df[column_name] = df[column_name].apply(lambda x: word_tokenize(x))
 
 
 
-        print("Finished cleaning text. You can proceed to train your model")
+        print("Finished cleaning text.")
         return df 
 
     except Exception as e:
